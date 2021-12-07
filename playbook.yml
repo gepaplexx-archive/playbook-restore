@@ -4,6 +4,13 @@
   gather_facts: false
   environment:
     KUBECONFIG: "{{ openshift_kubeconfig_file }}"
+  vars:
+    velero_s3_bucket: bucket
+    velero_s3_access_key: accesskey
+    velero_s3_secret_key: secret
+    # prevent it from making a backup right away
+    velero_backupschedule_enabled: false 
+
   roles:
     - role: gepaplexx.velero
 
@@ -13,13 +20,17 @@
   environment:
     KUBECONFIG: "{{ openshift_kubeconfig_file }}"
   tasks:
+    - name: "debug: get backups"
+      changed_when: false
+      ansible.builtin.command:
+        cmd: "velero get backup"
+
     - name: Initiate Restore
       ansible.builtin.command:
-        cmd: |
-          velero create restore \
-            --from-schedule backup \
-            --allow-partially-failed false \
-            --include-namespaces couchbase-hogarama \
+        cmd: >
+          velero create restore autorestore
+            --from-schedule=velero-backup
+            --allow-partially-failed=false
             --wait
       changed_when: true
 

@@ -5,7 +5,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/gepaplexx/playbook-restore?style=flat-square)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022?style=flat-square)
 
-Automatically approving CSR from new openshift nodes
+Automatically restoring a cluster from a velero backup
 
 ## License
 
