@@ -1,9 +1,26 @@
 ---
-- name: Install K8stools
+- name: Velero Install
   hosts: all
-  become: true
-  tags:
-    - k8stools
+  gather_facts: false
+  environment:
+    KUBECONFIG: "{{ openshift_kubeconfig_file }}"
   roles:
-    - role: gepaplexx.k8stools
+    - role: gepaplexx.velero
+
+- name: Restore
+  hosts: all
+  gather_facts: false
+  environment:
+    KUBECONFIG: "{{ openshift_kubeconfig_file }}"
+  tasks:
+    - name: Initiate Restore
+      ansible.builtin.command:
+        cmd: |
+          velero create restore \
+            --from-schedule backup \
+            --allow-partially-failed false \
+            --include-namespaces couchbase-hogarama \
+            --wait
+      changed_when: true
+
 ...
