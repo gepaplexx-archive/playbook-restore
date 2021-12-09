@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   environment:
-    KUBECONFIG: "{{ openshift_kubeconfig_file | default(undefined) }}"
+    KUBECONFIG: "{{ openshift_kubeconfig_file }}"
   vars:
     velero_s3_bucket: bucket
     velero_s3_access_key: accesskey
@@ -18,7 +18,7 @@
   hosts: all
   gather_facts: false
   environment:
-    KUBECONFIG: "{{ openshift_kubeconfig_file | default(undefined) }}"
+    KUBECONFIG: "{{ openshift_kubeconfig_file }}"
   tasks:
     - name: "debug: get backups"
       changed_when: false
