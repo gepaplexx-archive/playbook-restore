@@ -1,5 +1,5 @@
 [all:vars]
-openshift_kubeconfig_file="~/.kube/config"
+openshift_kubeconfig_file="/etc/rancher/k3s/k3s.yaml"
 
 [pxe]
 localhost ansible_connection=local
