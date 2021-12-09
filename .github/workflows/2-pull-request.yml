@@ -84,7 +84,7 @@ jobs:
 
       - name: Run Playbook
         run: >-
-          ansible-playbook -i hosts playbook.yml
+          ansible-playbook -i hosts playbook.yml --skip-tags restore.velero.cmd
         env:
           PY_COLORS: 1
           ANSIBLE_FORCE_COLOR: 1
